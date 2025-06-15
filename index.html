@@ -4,11 +4,16 @@
   <meta charset="UTF-8" />
   <title>Login | Hotel Management</title>
   <style>
-    body {
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
       display: flex;
       height: 100vh;
+      font-family: Arial, sans-serif;
     }
 
     .container {
@@ -28,13 +33,14 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      background: white;
+      background-color: #f9f9f9;
     }
 
     .login-box {
       width: 300px;
-      padding: 40px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      padding: 30px;
+      background-color: white;
+      box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
       border-radius: 10px;
     }
 
@@ -47,24 +53,23 @@
       width: 100%;
       padding: 10px;
       margin: 10px 0;
-      border: 1px solid #ccc;
       border-radius: 5px;
+      border: 1px solid #ccc;
     }
 
     button {
-      background: #007BFF;
+      background-color: #007BFF;
       color: white;
-      border: none;
       cursor: pointer;
     }
 
     button:hover {
-      background: #0056b3;
+      background-color: #0056b3;
     }
 
     #error {
-      text-align: center;
       color: red;
+      text-align: center;
     }
   </style>
 </head>
@@ -74,28 +79,15 @@
     <div class="form-side">
       <div class="login-box">
         <h2>Hotel Login</h2>
-        <input type="text" id="username" placeholder="Username" />
-        <input type="password" id="password" placeholder="Password" />
-        <button onclick="login()">Login</button>
+        <input type="text" id="username" placeholder="Username">
+        <input type="password" id="password" placeholder="Password">
+        <button id="loginBtn">Login</button>
         <p id="error"></p>
       </div>
     </div>
   </div>
 
-  <script>
-    // Dynamically select a random background image from assets
-    const images = ["assets/hotel1.jpg", "assets/hotel2.jpg", "assets/hotel3.jpg"];
-    const selectedImage = images[Math.floor(Math.random() * images.length)];
-    document.getElementById("imageSide").style.backgroundImage = `url('${selectedImage}')`;
-
-    // Login function
-    function login() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-      if (user === 'admin' && pass === '1234') {
-        window.location.href = 'dashboard.html';
-      } else {
-        document.getElementById('error').innerText = 'Invalid credentials';
-      }
-    }
-  </script>
+  <!-- Link to your external JS -->
+  <script src="script.js"></script>
+</body>
+</html>

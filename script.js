@@ -1,88 +1,34 @@
-// Rotate background on login page
-const backgrounds = [
-  "assets/hotel1.jpg",
-  "assets/hotel2.jpg",
-  "assets/hotel3.jpg"
-];
-let current = 0;
-function rotateBackground() {
-  document.body.style.backgroundImage = `url('${backgrounds[current]}')`;
-  current = (current + 1) % backgrounds.length;
-}
-if (document.body.classList.contains('login-page')) {
-  rotateBackground();
-  setInterval(rotateBackground, 4000);
-}
+window.onload = () => {
+  // Slideshow image list
+  const images = ["assets/hotel1.jpg", "assets/hotel2.jpg", "assets/hotel3.jpg"];
+  let currentIndex = 0;
+  const imageSide = document.getElementById("imageSide");
 
-// Dummy login
-function login() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-  const error = document.getElementById('error');
-
-  if (user === "dev" && pass === "1234") {
-    window.location.href = "dashboard.html";
-  } else {
-    error.textContent = "Invalid credentials!";
+  // Function to rotate image
+  function rotateImage() {
+    if (imageSide) {
+      imageSide.style.backgroundImage = `url('${images[currentIndex]}')`;
+      currentIndex = (currentIndex + 1) % images.length;
+    }
   }
-}
 
-// Dashboard section logic
-function showSection(id) {
-  document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-  document.getElementById(id).style.display = "block";
-}
+  // Start slideshow
+  rotateImage(); // Show the first image
+  setInterval(rotateImage, 3000); // Rotate every 3 seconds
 
-// Booking form logic
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("bookingForm");
-  const list = document.getElementById("bookingList");
+  // Login handling
+  const loginBtn = document.getElementById("loginBtn");
+  if (loginBtn) {
+    loginBtn.addEventListener("click", () => {
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value.trim();
+      const errorDisplay = document.getElementById("error");
 
-  if (form) {
-    form.addEventListener("submit", function(e) {
-      e.preventDefault();
-      const name = document.getElementById("bname").value;
-      const inDate = document.getElementById("checkin").value;
-      const outDate = document.getElementById("checkout").value;
-      const type = document.getElementById("roomtype").value;
-
-      const item = document.createElement("li");
-      item.textContent = `${name} - ${type} Room from ${inDate} to ${outDate}`;
-      list.appendChild(item);
-
-      form.reset();
+      if (username === "Dev" && password === "1234") {
+        window.location.href = "dashboard.html";
+      } else {
+        errorDisplay.textContent = "Invalid credentials";
+      }
     });
   }
-});
-// Show selected section
-function showSection(id) {
-  document.querySelectorAll(".section").forEach(section => {
-    section.style.display = "none";
-  });
-  const selected = document.getElementById(id);
-  if (selected) {
-    selected.style.display = "block";
-  }
-}
-
-// Booking form logic
-document.addEventListener("DOMContentLoaded", () => {
-  const form = document.getElementById("bookingForm");
-  const list = document.getElementById("bookingList");
-
-  if (form) {
-    form.addEventListener("submit", function (e) {
-      e.preventDefault();
-      const name = document.getElementById("bname").value;
-      const checkin = document.getElementById("checkin").value;
-      const checkout = document.getElementById("checkout").value;
-      const roomtype = document.getElementById("roomtype").value;
-
-      const entry = document.createElement("li");
-      entry.textContent = `${name} - ${roomtype} room from ${checkin} to ${checkout}`;
-      list.appendChild(entry);
-
-      form.reset();
-    });
-  }
-});
+};
