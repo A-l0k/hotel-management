@@ -2,12 +2,12 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Hotel Dashboard</title>
+  <title>Dashboard | Hotel Management</title>
   <style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
-      background: #f0f2f5;
+      background: #f8f9fa;
     }
     .dashboard {
       display: flex;
@@ -15,40 +15,44 @@
       margin-bottom: 20px;
     }
     .card {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-      cursor: pointer;
-      text-align: center;
       flex: 1;
-      transition: background 0.3s;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      text-align: center;
+      cursor: pointer;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+      transition: 0.3s;
     }
     .card:hover {
-      background-color: #e6f0ff;
+      background: #e0f0ff;
     }
     .section {
       display: none;
+      background: white;
       padding: 20px;
-      background: #fff;
-      border-radius: 12px;
+      border-radius: 10px;
       box-shadow: 0 2px 6px rgba(0,0,0,0.1);
     }
-    table, th, td {
-      border: 1px solid #ccc;
+    table {
+      width: 100%;
       border-collapse: collapse;
-      padding: 8px;
+    }
+    th, td {
+      padding: 10px;
+      border: 1px solid #ccc;
     }
     form input, form select, form button {
       display: block;
-      margin: 8px 0;
+      margin: 10px 0;
       padding: 8px;
       width: 100%;
     }
   </style>
 </head>
 <body>
-  <h1>Hotel Management Dashboard</h1>
+
+  <h1>Welcome to ABC Hotel Management</h1>
 
   <div class="dashboard">
     <div class="card" onclick="showSection('bookings')">Manage Bookings</div>
@@ -73,7 +77,7 @@
   </div>
 
   <div id="rooms" class="section">
-    <h2>Rooms</h2>
+    <h2>Room List</h2>
     <table>
       <tr><th>Room No</th><th>Type</th><th>Status</th></tr>
       <tr><td>101</td><td>Single</td><td>Available</td></tr>
@@ -82,7 +86,7 @@
   </div>
 
   <div id="customers" class="section">
-    <h2>Customers</h2>
+    <h2>Customer Details</h2>
     <table>
       <tr><th>Name</th><th>Phone</th><th>Email</th></tr>
       <tr><td>Rahul</td><td>9876543210</td><td>rahul@example.com</td></tr>
@@ -92,29 +96,27 @@
 
   <script>
     function showSection(id) {
-      document.querySelectorAll(".section").forEach(s => s.style.display = "none");
-      document.getElementById(id).style.display = "block";
+      document.querySelectorAll(".section").forEach(section => {
+        section.style.display = 'none';
+      });
+      document.getElementById(id).style.display = 'block';
     }
 
     document.addEventListener("DOMContentLoaded", () => {
-      const form = document.getElementById("bookingForm");
-      const list = document.getElementById("bookingList");
+      document.getElementById("bookingForm").addEventListener("submit", function(e) {
+        e.preventDefault();
+        const name = document.getElementById("bname").value;
+        const checkin = document.getElementById("checkin").value;
+        const checkout = document.getElementById("checkout").value;
+        const roomtype = document.getElementById("roomtype").value;
+        const list = document.getElementById("bookingList");
 
-      if (form) {
-        form.addEventListener("submit", function (e) {
-          e.preventDefault();
-          const name = document.getElementById("bname").value;
-          const checkin = document.getElementById("checkin").value;
-          const checkout = document.getElementById("checkout").value;
-          const roomtype = document.getElementById("roomtype").value;
+        const item = document.createElement("li");
+        item.textContent = `${name} booked a ${roomtype} room from ${checkin} to ${checkout}`;
+        list.appendChild(item);
 
-          const entry = document.createElement("li");
-          entry.textContent = `${name} booked a ${roomtype} room from ${checkin} to ${checkout}`;
-          list.appendChild(entry);
-
-          form.reset();
-        });
-      }
+        this.reset();
+      });
     });
   </script>
 </body>
